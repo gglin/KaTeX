@@ -78,7 +78,11 @@ defineFunction({
             children: [
                 {type: "elem", elem: inner, wrapperClasses: ["svg-align"]},
                 {type: "kern", size: -(inner.height + imgShift)},
-                {type: "elem", elem: img},
+                {
+                    type: "elem",
+                    elem: img,
+                    wrapperStyle: {pointerEvents: "none"},
+                },
                 {type: "kern", size: ruleWidth},
             ],
         }, options);

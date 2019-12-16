@@ -443,6 +443,13 @@ type ParseNodeTypes = {
         body: AnyParseNode,
         below: ?AnyParseNode,
     |},
+    "zInput": {|
+        type: "zInput",
+        mode: Mode,
+        loc?: ?SourceLocation,
+        index: number,
+        width: Measurement,
+    |},
 };
 
 /**

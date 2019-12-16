@@ -665,6 +665,11 @@ const handleObject = (
             break;
         }
 
+        case "zInput": {
+            a11yStrings.push("blank");
+            break;
+        }
+
         default:
             (tree.type: empty);
             throw new Error("KaTeX a11y un-recognized type: " + tree.type);

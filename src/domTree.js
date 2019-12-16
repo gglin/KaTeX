@@ -332,6 +332,70 @@ export class Img implements VirtualNode {
     }
 }
 
+/**
+ * This node represents an input (<input>) element.
+ */
+export class Input implements VirtualNode {
+    index: number;
+    classes: string[];
+    height: number;
+    depth: number;
+    maxFontSize: number;
+    style: CssStyle;
+
+    constructor(
+        index: number,
+        style: CssStyle,
+    ) {
+        this.index = index;
+        this.classes = ["number-input", "zearn-input"];
+        this.style = style;
+        // TODO calculate this from font size so it works for smaller sizes
+        this.height = 1;
+        this.depth = 0.1;
+    }
+
+    hasClass(className: string): boolean {
+        return utils.contains(this.classes, className);
+    }
+
+    toNode(): Node {
+        const node = document.createElement("input");
+        node.type = "tel";
+        node.className = "number-input zearn-input";
+        node.setAttribute("data-idx", this.index.toString());
+
+        // Apply inline styles
+        for (const style in this.style) {
+            if (this.style.hasOwnProperty(style)) {
+                // $FlowFixMe
+                node.style[style] = this.style[style];
+            }
+        }
+
+        return node;
+    }
+
+    toMarkup(): string {
+        let markup = `<input  type='tel' class='number-input zearn-input' `;
+        markup += `data-idx='${this.index}' `;
+
+        // Add the styles, after hyphenation
+        let styles = "";
+        for (const style in this.style) {
+            if (this.style.hasOwnProperty(style)) {
+                styles += `${utils.hyphenate(style)}:${this.style[style]};`;
+            }
+        }
+        if (styles) {
+            markup += ` style="${utils.escape(styles)}"`;
+        }
+
+        markup += " />";
+        return markup;
+    }
+}
+
 const iCombinations = {
     'î': '\u0131\u0302',
     'ï': '\u0131\u0308',
